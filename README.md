@@ -1,6 +1,6 @@
 # Useful Command Line Tools
 
-* **get-char.sh**, get-line.py - given a multi-char or multi-line input string, will return the nth char or line
+* **get-char.sh**, **get-line.py** - given a multi-char or multi-line input string, will return the nth char or line
 * **histogram.py** - takes multiple lines of repetitive output and returns a freq list/histogram
 * **git-grab-all-revisions** - print all the versions of a git file
 * **WhatIsMyIP** - displays outwardly visible IP address
