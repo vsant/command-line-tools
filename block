@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ -z "$1" ];then
+  echo -e "Usage: block <site_name without www. or .com>"
+  exit 1
+fi
+
+temp_file=`mktemp /tmp/hosts_blocker.XXX` || exit 1
+site=$1
+
+google_ip=`host google.com | head -1 | awk '{ print $4; }'`
+
+cp /etc/hosts $temp_file
+echo "$google_ip www.$site.com" >> $temp_file
+echo "$google_ip $site.com"     >> $temp_file
+sudo mv $temp_file /etc/hosts && sudo chown root:wheel /etc/hosts && sudo chmod 644 /etc/hosts
+
+sudo dscacheutil -flushcache
+sudo killall -HUP mDNSResponder

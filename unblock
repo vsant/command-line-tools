@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -z "$1" ];then
+  echo -e "Usage: unblock <partial_name_of_site>"
+  exit 1
+fi
+
+temp_file=`mktemp /tmp/hosts_unblocker.XXX` || exit 1
+grep -v "$1" /etc/hosts > $temp_file
+sudo mv $temp_file /etc/hosts && sudo chown root:wheel /etc/hosts && sudo chmod 644 /etc/hosts
+sudo discoveryutil mdnsflushcache
+sudo discoveryutil udnsflushcaches

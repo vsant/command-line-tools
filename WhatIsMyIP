@@ -1,0 +1,16 @@
+#!/bin/zsh
+
+DATA=`curl -s "http://ip-api.com/csv/?fields=city,region,query,countryCode"`
+
+COUNTRY=`echo $DATA | cut -d',' -f1`
+STATE=`echo $DATA | cut -d',' -f2`
+CITY=`echo $DATA | cut -d',' -f3`
+IP=`echo $DATA | cut -d',' -f4`
+
+if [ "$CITY" = "" ]; then
+  msg=$COUNTRY
+else
+  msg="$CITY, $STATE"
+fi
+
+/Users/vsant/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier -title "$IP" -message "$msg"

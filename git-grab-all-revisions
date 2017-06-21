@@ -1,0 +1,28 @@
+#!/bin/zsh
+# 
+# Get all the revisions of a git stored file and write them out
+#
+# Vivek Sant <vsant@hcs.harvard.edu>
+# 26 Jun 2010
+#
+
+# Make sure we have only 1 arg, the filename
+if [[ $# != 1 ]]; then
+  echo "Usage:\n$0 FILE_TO_GET_REVISIONS_OF"
+  exit -1
+fi
+
+# Get the file's name, name w/o ext, and ext
+MAIN_FILE=$1
+MAIN_FILE_NOEXT=${MAIN_FILE%.*}
+MAIN_FILE_EXT=${MAIN_FILE##*.}
+
+# Find out how many revs of this file exist
+NUM=`git log "$MAIN_FILE" | grep -c "Author: "`
+
+# Iterate through all revisions, running a git show and writing output to file
+for i in {0..$(($NUM-1))}; do
+  FILENAME="$MAIN_FILE_NOEXT v$(($NUM-$i)).$MAIN_FILE_EXT"
+  echo "Creating file: $FILENAME"
+  git show HEAD~$i:"$MAIN_FILE" >> "$FILENAME"
+done

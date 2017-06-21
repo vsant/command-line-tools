@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# 10.5, 10.6
+#dscacheutil -flushcache
+
+# 10.7, 10.8
+#sudo killall -HUP mDNSResponder
+
+# 10.10
+sudo discoveryutil mdnsflushcache
+sudo discoveryutil udnsflushcaches
