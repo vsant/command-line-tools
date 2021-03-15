@@ -8,5 +8,5 @@ fi
 temp_file=`mktemp /tmp/hosts_unblocker.XXX` || exit 1
 grep -v "$1" /etc/hosts > $temp_file
 sudo mv $temp_file /etc/hosts && sudo chown root:wheel /etc/hosts && sudo chmod 644 /etc/hosts
-sudo discoveryutil mdnsflushcache
-sudo discoveryutil udnsflushcaches
+
+sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
