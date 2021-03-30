@@ -1,18 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # 
 # Vivek Sant <vsant@hcs.harvard.edu>
 # March 7, 2011
 # 
 
-import urllib, urllib2
-import re
 from subprocess import Popen, PIPE
 from platform import system as getOSType
 
 URL_SEARCH = 'http://www.ultimate-guitar.com/search.php?search_type=title&value='
 
 def usage():
-  print "Usage: guitar.py (uses current iTunes track)"
+  print("Usage: guitar.py (uses current iTunes track)")
 
 def main(argv):
   if len(argv) != 1 or getOSType() != 'Darwin':
